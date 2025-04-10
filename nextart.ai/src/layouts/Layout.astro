@@ -1,5 +1,5 @@
 ---
-import "../styles/global.css";
+import "@styles/global.css";
 ---
 
 <!doctype html>
@@ -10,10 +10,10 @@ import "../styles/global.css";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>NextArt.AI</title>
-	</head>
-	<body>
+    </head>
+	<body class="dark:bg-black dark:text-white">
 		<slot />
-        <script is:inline src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+        <script is:inline src="..\..\node_modules\flowbite\dist\flowbite.min.js"></script>
 	</body>
 </html>
 

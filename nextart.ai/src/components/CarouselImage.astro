@@ -1,0 +1,22 @@
+---
+import { Image } from "astro:assets"
+const { 
+       src, 
+       inferSize = true, 
+       loading = "lazy", 
+       class_ = "h-auto max-w-full rounded-lg",
+       alt = "",
+       ...props 
+} = Astro.props
+---
+
+<div>
+    <Image 
+        class={class_} 
+        src={src} 
+        loading={loading} 
+        inferSize={inferSize} 
+        alt={alt}
+        {...props}
+    />
+</div>

@@ -1,52 +1,36 @@
 ---
-import { Image } from 'astro:assets';
 import image1 from '../assets/image1.jpg'
+import CarouselImage from '@components/CarouselImage.astro'
+
+const GALLERY_MASONRY_IMAGE_SRCS = [
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg", 
+    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg",
+    image1
+]
+
+const IMAGES_PER_GRID = 3;
+const NUMBER_OF_GRIDS = Math.ceil(GALLERY_MASONRY_IMAGE_SRCS.length / IMAGES_PER_GRID);
+const MAX_NUMBER_OF_IMAGE_EAGER_LOADING = 12
 ---
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <div class="grid gap-4">
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt=""  loading="eager" inferSize={true}/>
+<div class="my-9 grid grid-cols-2 md:grid-cols-4 gap-4">
+    {Array.from({ length: NUMBER_OF_GRIDS }).map((_, gridIndex) => (
+        <div class="grid gap-4">
+        {GALLERY_MASONRY_IMAGE_SRCS
+            .slice(gridIndex * IMAGES_PER_GRID, (gridIndex + 1) * IMAGES_PER_GRID)
+            .map((src) => (
+            <CarouselImage src={src} loading="eager" />
+            ))}
         </div>
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt=""  loading="eager" inferSize={true}/>
-        </div>
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt=""  loading="eager" inferSize={true}/>
-        </div>
-    </div>
-    <div class="grid gap-4">
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt=""  loading="eager" inferSize={true}/>
-        </div>
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt=""  loading="eager" inferSize={true}/>
-        </div>
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt=""  loading="eager" inferSize={true}/>
-        </div>
-    </div>
-    <div class="grid gap-4">
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt=""  loading="eager" inferSize={true}/>
-        </div>
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt=""  loading="eager" inferSize={true}/>
-        </div>
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt=""  loading="lazy" inferSize={true}/>
-        </div>
-    </div>
-    <div class="grid gap-4">
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt=""  loading="lazy" inferSize={true}/>
-        </div>
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt=""  loading="lazy" inferSize={true}/>
-        </div>
-        <div>
-            <Image class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt=""  loading="lazy" inferSize={true}/>
-        </div>
-    </div>
-    <Image class="" src={image1} alt="An oil bottle." inferSize={true} loading="lazy"/>        
+    ))}
 </div>

@@ -1,0 +1,82 @@
+---
+// src/pages/index.astro
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Prompt Form (TypeScript)</title>
+</head>
+<body>
+  <form class="max-w-sm mx-auto" action="/api/submit-prompt" method="POST">
+    <label for="prompt" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Prompt</label>
+    <textarea
+      id="prompt"
+      name="prompt"
+      rows="4"
+      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      placeholder="Enter your prompt here..."
+      required
+    ></textarea>
+    <button
+      type="submit"
+      class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Submit Prompt
+    </button>
+  </form>
+
+  <script>
+    // Optional: Client-side script for displaying a message or further interactions
+    const form = document.querySelector('form');
+    if (form) {
+      form.addEventListener('submit', async (event) => {
+        // Prevent the default form submission (page reload)
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        try {
+          const response = await fetch('/api/submit-prompt', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            alert(data.message || 'Prompt submitted successfully!');
+          } else {
+            const errorData = await response.json();
+            alert(errorData.error || 'Failed to submit prompt.');
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert('An unexpected error occurred.');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
+<script context="server" lang="ts">
+  import { APIContext } from 'astro';
+  import { json } from 'astro/responses';
+
+  export async function POST({ request }: APIContext) {
+    try {
+      const formData = await request.formData();
+      const prompt = formData.get('prompt') as string | null; // Explicitly type 'prompt'
+
+      if (prompt) {
+        console.log('Received prompt (server-side):', prompt);
+        return json({ message: 'Prompt received successfully from server!' }, { status: 200 });
+      } else {
+        return json({ error: 'Prompt cannot be empty.' }, { status: 400 });
+      }
+    } catch (error) {
+      console.error('Error processing form (server-side):', error);
+      return json({ error: 'Failed to process form data on the server.' }, { status: 500 });
+    }
+  }
+</script>

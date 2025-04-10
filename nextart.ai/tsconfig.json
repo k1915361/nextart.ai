@@ -8,6 +8,8 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@blogs/*": ["src/blogs/*"],
+      "@styles/*": ["src/styles/*"],
+      "@node_modules/*": ["node_modules/*"],
     },
     "verbatimModuleSyntax": true,
     "plugins": [
