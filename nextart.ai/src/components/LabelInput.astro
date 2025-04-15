@@ -1,0 +1,10 @@
+---
+import Input from "./Input.astro";
+const { label = "", labelProps, ...props } = Astro.props
+
+---
+
+<label {...labelProps}>
+    {label}
+    <Input type="text" name="username" required {...props}/>
+</label>

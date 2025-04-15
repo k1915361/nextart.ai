@@ -28,3 +28,7 @@ SeaArt.AI:
 - Cloud Load Balancing for speeding up web page loading
 - BigQuery - data analytics
 - Firebase with BigQuery - real-time data analytics for timely troubleshooting
+
+## Astro testing
+
+https://docs.astro.build/en/guides/testing/

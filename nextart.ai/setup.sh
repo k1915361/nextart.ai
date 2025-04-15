@@ -121,3 +121,7 @@ echo "default username and pssword are 'postgres' and 'password'"
 
 echo "to reset password in psql shell: ALTER USER postgres PASSWORD 'postgres'"
 
+echo "Starting development app"
+
+npm start dev
+

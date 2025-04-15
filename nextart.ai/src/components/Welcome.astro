@@ -3,7 +3,9 @@ import astroLogo from '../assets/astro.svg';
 import Carousel from './Carousel.astro';
 import NewsPopUp from './NewsPopUp.astro';
 import JoinOurDiscordButton from './JoinOurDiscordButton.astro'
-import TextToImageForm from './TextToImageForm.astro';
+import TextToImageForm, { testValue } from './TextToImageForm.astro';
+import Form from 'src/pages/Form.astro';
+
 ---
 
 <div id="container" class="">
@@ -20,6 +22,8 @@ import TextToImageForm from './TextToImageForm.astro';
 				<a class="button" href="https://docs.astro.build">Read our docs</a>
 				<JoinOurDiscordButton/>
 			</section>
+            <Form/>
+            {testValue}
             <TextToImageForm/>
             <Carousel />
 		</section>
