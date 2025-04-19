@@ -1,8 +1,9 @@
 ---
+import { prisma } from 'src/prisma_singleton';
 import Carousel from './Carousel.astro';
 import NewsPopUp from './NewsPopUp.astro';
 import TextToImageForm, { testValue } from '@pages/TextToImageForm.astro';
-import Form from 'src/pages/Form.astro';
+import Form from 'src/pages/form.astro';
 
 ---
 
@@ -10,7 +11,7 @@ import Form from 'src/pages/Form.astro';
 	<main>
 		<section id="hero">
             <title>NextArt.AI</title>
-			
+			{JSON.stringify(prisma.post.findMany())}			
             <Form/>
             <TextToImageForm/>
             <Carousel />

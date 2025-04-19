@@ -144,5 +144,11 @@ echo "to reset password in psql shell: ALTER USER postgres PASSWORD 'postgres'"
 
 echo "Starting development app"
 
+echo "How to check local database tables:"
+echo "\c nextartai"
+echo "\dt" # list tables
+echo "select * from \"Post\";"
+echo "select * from \"User\";"
+
 npm start dev
 

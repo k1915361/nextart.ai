@@ -26,7 +26,7 @@ main()
 async function getUsersWithPosts() {
     const usersWithPosts = await prisma.user.findMany({
         include: {
-            posts: true,
+            Post: true,
         },
     })
     console.dir(usersWithPosts, { depth: null })
@@ -37,7 +37,7 @@ async function getRelation() {
         data: {
             name: 'Bob',
             email: 'bob@prisma.io',
-            posts: {
+            Post: {
                 create: [
                     {
                         title: 'Hello World',
