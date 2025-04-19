@@ -32,3 +32,51 @@ SeaArt.AI:
 ## Astro testing
 
 https://docs.astro.build/en/guides/testing/
+
+## Astro Example Project Tree
+
+https://docs.astro.build/en/basics/project-structure/
+
+```
+public/
+    robots.txt
+    favicon.svg
+    my-cv.pdf
+src/
+    blog/
+        post1.md
+        post2.md
+        post3.md
+    components/
+        Header.astro
+        Button.jsx
+    images/
+        image1.jpg
+        image2.jpg
+        image3.jpg
+    layouts/
+        PostLayout.astro
+    pages/
+        posts/
+            [post].astro
+        about.astro
+        index.astro
+        rss.xml.js
+        styles/
+            global.css
+        content.config.ts
+astro.config.mjs
+package.json
+tsconfig.json
+```
+
+## Server-side DB calls checklist
+
+Please ensure to never run server-side DB calls in client-side code.
+
+Server-side DB calls:
+- `src/pages/api/foo.ts`
+- `src/pages/foo.ts`
+
+UI components:
+- `.tsx`, `.astro` under `src/components/` or `src/pages/` (and client directives for interactive bits)

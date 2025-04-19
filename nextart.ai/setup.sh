@@ -74,7 +74,7 @@ echo "1. Define your database schema. Open the schema.prisma file and define you
 
 echo "2. Apply migrations. npx prisma migrate dev --name init"
 
-echo "3. Manage your data. View and edit your data locally by running this command: npx prisma studio"
+echo "3. Manage your data. Database UI tool. View and edit your data locally by running this command: npx prisma studio"
 
 npm install typescript tsx @types/node --save-dev
 
@@ -85,17 +85,36 @@ echo "Creatie index.ts for Prisma manually"
 
 npx prisma migrate dev --name init
 
+# https://www.prisma.io/docs/orm/prisma-schema/introspection
+echo "Introspection workflow"
+
+echo "1. Change the database schema (e.g. using plain SQL)"
+echo "2. Run `npx prisma db pull` to update the Prisma schema"
+echo "3. Run `npx prisma generate` to update Prisma Client"
+echo "4. Use the updated Prisma Client in your application"
+
+# Workaround for introspection warnings for unsupported features
+# If you are using a relational database and either one of the above features listed in the previous section:
+
+# 1. Create a draft migration:
+# npx prisma migrate dev --create-only
+
+# 2 Add the SQL that adds the feature surfaced in the warnings.
+# 3. Apply the draft migration to your database:
+# npx prisma migrate dev
+
 echo "Install Prisma Client"
 
 npm install @prisma/client
 
 npx prisma generate
 
+echo "npx prisma init -y"
+
 echo "whenever you make changes to your Prisma schema file, you also need to update the Prisma Client. You can do this by running the `prisma generate` command"
 echo "in short: 1. when Prisma schema changed 2. run `npx prisma generate`"
 
-
-echo "use this command to test with commands: npx tsx index.ts"
+echo "use this command to test the query scripts: npx tsx index.ts"
 
 echo "Ensure to run terminal (git bash/powershell) as admin."
 

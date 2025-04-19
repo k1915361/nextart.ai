@@ -1,8 +1,6 @@
 ---
 import Button from "@components/Button.astro";
-import Input from "@components/Input.astro";
 import LabelInput from "@components/LabelInput.astro";
-import type { log } from "console";
 
 const errors = { username: "", email: "", password: "" };
 
@@ -11,59 +9,85 @@ export function isValidEmail(email) {
 }
 
 export function isRegistered(email) {
-    return true
+    return false
+}
+
+export function registerUser() {
+    return 
 }
 
 if (Astro.request.method === "POST") {
-  try {
-    const data = await Astro.request.formData();
-    const name = data.get("username");
-    const email = data.get("email");
-    const password = data.get("password");
-    console.log("name, email, password", name, email, password)
-    
-    
-    if (typeof name !== "string" || name.length < 1) {
-      errors.username += "Please enter a username. ";
-    }
-    if (typeof email !== "string" || !isValidEmail(email)) {
-      errors.email += "Email is not valid. ";
-    } else if (await isRegistered(email)) {
-      errors.email += "Email is already registered. ";
-    }
-    if (typeof password !== "string" || password.length < 6) {
-      errors.password += "Password must be at least 6 characters. ";
-    }
+    console.assert(Astro.request.method === "POST", "request is not POST")
+    try {
+        const data = await Astro.request.formData();
+        const name = data.get("username");
+        const email = data.get("email");
+        const password = data.get("password");
+        console.log("name, email, password", name, email, password)
+        
+        if (typeof name !== "string" || name.length < 1) {
+            errors.username += "Please enter a username. ";
+        }
+        if (typeof email !== "string" || !isValidEmail(email)) {
+            errors.email += "Email is not valid. ";
+        } else if (await isRegistered(email)) {
+            errors.email += "Email is already registered. ";
+        }
+        if (typeof password !== "string" || password.length < 6) {
+            errors.password += "Password must be at least 6 characters. ";
+        }
+        
+        const hasErrors = Object.values(errors).some(msg => msg)
+        console.assert(!hasErrors, "form has errors")
+        
+        if (!hasErrors) {
+            await registerUser({name, email, password});
+            // return Astro.redirect("/login");
+        }
 
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
     }
-  }
 }
 ---
-<h1>Form</h1>
-<form method="POST">
-    <LabelInput
-        label="Username:"
-        type="text" name="username" required 
-        value="a"
-    />
-    {errors.username && <p>{errors.username}</p>}
+<form method="POST" netlify 
+    class="max-w-sm mx-auto my-5"
+    >
+    <h1 class="mb-5">Form</h1>
+    <div class="mb-5">
+        <LabelInput
+            label="Username:"
+            type="text" name="username" required
+        />
+        {errors.username && <p>{errors.username}</p>}
+    </div>
 
-    <LabelInput
-        label="Email:"
-        type="email" name="email" required    
-        value="a"
-    />
-    {errors.email && <p>{errors.email}</p>}
+    <div class="mb-5">
+        <LabelInput
+            label="Email:"
+            type="email" name="email" required
+            placeholder="name@example.com"
+        />
+        {errors.email && <p>{errors.email}</p>}
+    </div>
+    
+    <div class="mb-5">
+        <LabelInput
+            label="Password:"
+            type="password" name="password" required
+            minlength="6"
+        />
+        {errors.password && <p>{errors.password}</p>}
+    </div>
   
-    <LabelInput
-        label="Password:"
-        type="password" name="password" required 
-        minlength="6"
-        value="aaaaaa"
-    />
-    {errors.password && <p>{errors.password}</p>}
+    <div class="flex items-start mb-5">
+        <div class="flex items-center h-5">
+            <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+        </div>
+        <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+    </div>
+        
     <Button/>
 </form>

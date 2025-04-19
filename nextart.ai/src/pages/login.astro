@@ -1,0 +1,67 @@
+---
+import Button from "@components/Button.astro";
+import LabelInput from "@components/LabelInput.astro";
+import { isRegistered, isValidEmail } from "./form_.astro";
+
+const errors = { username: "", email: "", password: "" };
+
+export function loginUser (props) {}
+
+if (Astro.request.method === "POST") {
+        try {
+        const data = await Astro.request.formData();
+        const name = data.get("username");
+        const email = data.get("email");
+        const password = data.get("password");
+        console.log("name, email, password", name, email, password)
+        
+        if (typeof name !== "string" || name.length < 1) {
+            errors.username += "Please enter a username. ";
+        }
+        if (typeof email !== "string" || !isValidEmail(email)) {
+            errors.email += "Email is not valid. ";
+        } else if (await isRegistered(email)) {
+            errors.email += "Email is already registered. ";
+        }
+        if (typeof password !== "string" || password.length < 6) {
+            errors.password += "Password must be at least 6 characters. ";
+        }
+        
+        const hasErrors = Object.values(errors).some(msg => msg)
+        console.assert(!hasErrors, "form has errors")
+        
+        if (!hasErrors) {
+            await loginUser({name, email, password});
+            return Astro.redirect("/");
+        }
+
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
+    }
+
+}
+---
+<h1>Login</h1>
+<form method="POST" netlify>
+    <LabelInput
+        label="Username:"
+        type="text" name="username" required 
+    />
+    {errors.username && <p>{errors.username}</p>}
+
+    <LabelInput
+        label="Email:"
+        type="email" name="email" required    
+    />
+    {errors.email && <p>{errors.email}</p>}
+  
+    <LabelInput
+        label="Password:"
+        type="password" name="password" required 
+        minlength="6"
+    />
+    {errors.password && <p>{errors.password}</p>}
+    <Button/>
+</form>

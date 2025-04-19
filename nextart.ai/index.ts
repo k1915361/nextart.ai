@@ -1,3 +1,4 @@
+// import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'
 import { withAccelerate } from '@prisma/extension-accelerate'
 
@@ -8,7 +9,8 @@ async function main() {
     await getUsers()    
     await getRelation()    
     await getUsersWithPosts()
-    
+    await updateUser()
+    await deleteUser()
 }
 
 main()
@@ -61,6 +63,27 @@ async function createUser() {
     const user = await prisma.user.create({
         data: {
             name: 'Alice',
+            email: 'alice@prisma.io',
+        },
+    })
+    console.log(user)
+}
+
+async function updateUser() {
+    const user = await prisma.user.update({
+        where: {
+            email: 'alice@prisma.io',
+        },
+        data: {
+            name: 'Alice',
+        },
+    })
+    console.log(user)
+}
+
+async function deleteUser() {
+    const user = await prisma.user.delete({
+        where: {
             email: 'alice@prisma.io',
         },
     })

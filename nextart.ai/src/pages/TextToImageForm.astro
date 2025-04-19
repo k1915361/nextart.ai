@@ -1,0 +1,48 @@
+---
+export const testValue = "test... "
+
+import Button from "@components/Button.astro";
+import { INPUT_CLASS } from "@components/Input.astro";
+
+const errors = { username: "", email: "", password: "" };
+
+if (Astro.request.method === "POST") {
+    console.assert(Astro.request.method === "POST", "request is not POST")
+    try {
+        const data = await Astro.request.formData();
+        const prompt = data.get("prompt");
+        
+        console.log("prompt: ", prompt, )
+        
+        if (typeof prompt !== "string" || prompt.length < 1) {
+            errors.username += "Please enter the prompt. ";
+        }
+        
+        const hasErrors = Object.values(errors).some(msg => msg)
+        console.assert(!hasErrors, "form has errors")
+        
+        if (!hasErrors) {            
+        }
+
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
+    }
+}
+---
+
+<form class="max-w-sm mx-auto" method="POST" netlify>
+    <label for="prompt" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Prompt</label>
+        <textarea
+            id="prompt"
+            name="prompt"
+            rows="4"
+            class={INPUT_CLASS}
+            placeholder="Enter your prompt here..."
+            required
+        ></textarea>
+    <div class="mt-5">
+        <Button/>
+    </div>
+</form>

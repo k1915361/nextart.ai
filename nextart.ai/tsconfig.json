@@ -1,6 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
+  "include": [".astro/types.d.ts", "**/*", "src/queries.ts"],
   "exclude": ["dist"],
   "compilerOptions": {
     "baseUrl": ".",
@@ -9,6 +9,7 @@
       "@layouts/*": ["src/layouts/*"],
       "@blogs/*": ["src/blogs/*"],
       "@styles/*": ["src/styles/*"],
+      "@pages/*": ["src/pages/*"],
       "@node_modules/*": ["node_modules/*"],
     },
     "verbatimModuleSyntax": true,
@@ -16,6 +17,6 @@
       {
         "name": "@astrojs/ts-plugin"
       },
-    ],
+    ]
   }
 }

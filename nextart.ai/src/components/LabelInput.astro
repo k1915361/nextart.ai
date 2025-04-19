@@ -4,7 +4,9 @@ const { label = "", labelProps, ...props } = Astro.props
 
 ---
 
-<label {...labelProps}>
+<label {...labelProps} 
+    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+>
     {label}
     <Input type="text" name="username" required {...props}/>
 </label>
