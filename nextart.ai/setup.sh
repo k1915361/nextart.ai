@@ -114,7 +114,9 @@ echo "npx prisma init -y"
 echo "whenever you make changes to your Prisma schema file, you also need to update the Prisma Client. You can do this by running the `prisma generate` command"
 echo "in short: 1. when Prisma schema changed 2. run `npx prisma generate`"
 
-echo "use this command to test the query scripts: npx tsx index.ts"
+echo "use this command to test database queries: npx tsx index.ts"
+
+echo "then Optionally view and edit database with UI tool: npx prisma studio"
 
 echo "Ensure to run terminal (git bash/powershell) as admin."
 

@@ -15,7 +15,7 @@ async function main() {
     data: {
       email: user1Email,
       name: 'Alice',
-      posts: {
+      Post: {
         create: {
           title: 'Join the Prisma community on Discord',
           content: 'https://pris.ly/discord',
@@ -24,14 +24,14 @@ async function main() {
       },
     },
     include: {
-      posts: true,
+      Post: true,
     },
   });
   const user2 = await prisma.user.create({
     data: {
       email: user2Email,
       name: 'Bob',
-      posts: {
+      Post: {
         create: [
           {
             title: 'Check out Prisma on YouTube',
@@ -47,11 +47,11 @@ async function main() {
       },
     },
     include: {
-      posts: true,
+      Post: true,
     },
   });
   console.log(
-    `Created users: ${user1.name} (${user1.posts.length} post) and ${user2.name} (${user2.posts.length} posts) `,
+    `Created users: ${user1.name} (${user1.Post.length} post) and ${user2.name} (${user2.Post.length} posts) `,
   );
 
   // Retrieve all published posts
@@ -66,7 +66,7 @@ async function main() {
       title: 'Join the Prisma Discord community',
       content: 'https://pris.ly/discord',
       published: false,
-      author: {
+      User: {
         connect: {
           email: user1Email,
         },
@@ -90,7 +90,7 @@ async function main() {
   const postsByUser = await prisma.post
     .findMany({
       where: {
-        author: {
+        User: {
           email: user1Email
         }
       },

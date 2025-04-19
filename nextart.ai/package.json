@@ -7,8 +7,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "queries": "ts-node ./src/queries.ts",
-    "caching": "ts-node ./src/caching.ts"
+    "queries": "npx tsx ./src/queries.ts",
+    "caching": "npx tsx ./src/caching.ts",
+    "generate": "npx prisma generate",
+    "studio": "npx prisma studio",
+    "migrate": "npx prisma migrate"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.3.0",
@@ -24,7 +27,7 @@
   },
   "devDependencies": {
     "prisma": "6.5.0",
-    "ts-node": "10.9.2",
+    "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "5.8.2"
   }

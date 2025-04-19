@@ -1,6 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*", "src/queries.ts"],
+  "include": [".astro/types.d.ts", "**/*", "src/queries.ts", "src/**/*.ts"],
   "exclude": ["dist"],
   "compilerOptions": {
     "baseUrl": ".",
@@ -17,6 +17,7 @@
       {
         "name": "@astrojs/ts-plugin"
       },
-    ]
+    ],
+    "esModuleInterop": true,
   }
 }
