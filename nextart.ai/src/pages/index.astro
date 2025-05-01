@@ -3,8 +3,25 @@ import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+
+import { PrismaClient } from '@prisma/client';
+// import { withAccelerate } from '@prisma/extension-accelerate';
+
+export const prisma = new PrismaClient() // .$extends(withAccelerate());
+
+export const prerender = false;
+
+const users = await prisma.user.findMany() || []
+const posts = await prisma.post.findMany() || []
+
+console.log(users)
+console.log(posts)
 ---
 
 <Layout>
 	<Welcome />
+	Users:
+	{users.map((user) => <p>{user.name}</p>)}
+	Posts:
+    {posts.map((post) => <p>{post.title}</p>)}
 </Layout>

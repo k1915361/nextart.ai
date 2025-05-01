@@ -18,6 +18,6 @@
         "name": "@astrojs/ts-plugin"
       },
     ],
-    "esModuleInterop": true,
+    "esModuleInterop": true
   }
 }

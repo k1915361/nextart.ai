@@ -1,9 +1,9 @@
-cd "C:\Users\EP\Documents\GitHub\nextart.ai\nextart.ai"
+# cd "C:\Users\EP\Documents\GitHub\nextart.ai\nextart.ai"
 
-echo "using: C:\Users\EP\Documents\GitHub\nextart.ai\nextart.ai"
-echo "do not use: C:\Users\EP\Documents\GitHub\nextart.ai\"
+# echo "using: C:\Users\EP\Documents\GitHub\nextart.ai\nextart.ai"
+# echo "do not use: C:\Users\EP\Documents\GitHub\nextart.ai\"
 
-echo "Ensure to run terminal (git bash/powershell) as admin."
+# echo "Ensure to run terminal (git bash/powershell) as admin."
 
 # echo "Installing next JS app"
 echo "Go to astro guide below instead."
@@ -130,6 +130,10 @@ echo "-y is not recommended as finding the right password and resetting the pass
 echo "Optional postgresql install params: choco install postgresql13 --params '/Password:test /Port:5433'"
 
 echo "If terminal output says reboot is required, reboot the computer."
+
+echo "sudo -u postgres psql. use this command to open psql shell"
+echo "use this command to reset password: "
+echo "ALTER USER postgres PASSWORD 'yournewpassword';"
 
 psql -U postgres -c "CREATE DATABASE nextartai;"
 

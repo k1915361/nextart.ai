@@ -80,3 +80,51 @@ Server-side DB calls:
 
 UI components:
 - `.tsx`, `.astro` under `src/components/` or `src/pages/` (and client directives for interactive bits)
+
+## Checking PostgreSQL setup (Ubuntu 24.04)
+
+Installing PostreSQL
+
+```sh
+apt install postgresql
+```
+
+Check status
+
+```sh
+sudo systemctl status postgresql
+```
+
+Start the Server
+
+```sh
+sudo systemctl status postgresql
+# other optional commands
+sudo systemctl start postgresql
+sudo systemctl stop postgresql
+sudo systemctl restart postgresql
+sudo systemctl enable postgresql
+```
+
+Connecting to PostgreSQL (psql)
+
+```sh
+sudo -u postgres psql
+```
+
+`\l:` List databases.
+`\dt:` List tables in the current database.   
+`\du:` List users (roles).   
+`\q:` Quit psql.   
+`\h:` Get help on SQL commands.   
+`\?:` Get help on psql meta-commands.
+
+Key Configuration Files and Locations:
+
+The exact location can vary slightly by Ubuntu version, but generally:
+
+- Configuration Directory: `/etc/postgresql/XX/main/` (where XX is the major version, e.g., 16)
+- Main Configuration: `postgresql.conf`
+- Client Authentication: `pg_hba.conf` (controls who can connect from where and how they authenticate)   
+- Data Directory: `/var/lib/postgresql/XX/main/` (where your actual databases are stored)
+- Log Files: Location is configured in `postgresql.conf`, often somewhere under `/var/log/postgresql/`.
